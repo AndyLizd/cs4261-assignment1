@@ -27,6 +27,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "CS4261 - Programming Assignment I ",
+    "githubUrl": "https://github.com/AndyLizd/cs4261-assignment1.git"
   }
 }
