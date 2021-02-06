@@ -1,26 +1,86 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Alert, Button, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function App() {
   const [post, setPost] = useState("Lorem");
+  const [input, setInput] = useState("");
+
+  const dbURL =
+    "https://cs4261-assignment1-67f47-default-rtdb.firebaseio.com/rest/post.json";
 
   return (
     <View style={styles.container}>
       {/* <Text> CS 4261 - Assignment 1.0 </Text> */}
-      <View style={{ width: "80%", height: "40%" }}>
+      <View style={{ width: "80%", height: "20%" }}>
         <Text style={{ textAlign: "center" }}>{post}</Text>
       </View>
-      <Button title="Get A Random Post" onPress={() => handlePress(setPost)} />
+
+      <Button
+        title="Get A Random Post"
+        style={{}}
+        onPress={() => getRandomPost(setPost, dbURL)}
+      />
+
+      <TextInput
+        placeholder="write a new post"
+        onChangeText={(text) => setInput(text)}
+        style={{
+          width: "80%",
+          height: "8%",
+          margin: "15%",
+          backgroundColor: "#fafafa",
+          borderRadius: 20,
+          textAlign: "center",
+        }}
+      />
+      <Button
+        title="post"
+        color="#009688"
+        onPress={() => addPost(input, setInput, dbURL)}
+      />
 
       <StatusBar style="auto" />
     </View>
   );
 }
 
-const handlePress = (setPost) => {
+const getRandomPost = (setPost, dbURL) => {
   console.log("button pressed");
-  setPost("lorem " + Math.random());
+
+  fetch(dbURL)
+    .then((response) => response.json())
+    .then((posts) => {
+      const idx = Math.floor(Math.random() * posts.length);
+      setPost(posts[idx].content);
+      return posts;
+    })
+    .then((posts) => {
+      while (posts.length > 10) {
+        const idx = Math.floor(Math.random() * posts.length);
+        posts.splice(idx, 1); // remove posts[idx]
+      }
+      putPosts(posts, dbURL);
+    });
+};
+
+const putPosts = (posts, dbURL) => {
+  fetch(dbURL, {
+    method: "PUT",
+    body: JSON.stringify(posts),
+  });
+};
+
+const addPost = (input, setInput, dbURL) => {
+  fetch(dbURL)
+    .then((response) => response.json())
+    .then((posts) => {
+      posts.push({ content: input });
+      console.log(posts);
+      putPosts(posts, dbURL);
+    })
+    .then((res) => setInput(""))
+    .then((res) => Alert.alert("Success", "Post submitted."));
 };
 
 const styles = StyleSheet.create({
