@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { Alert, Button, StyleSheet, Text, TextInput, View } from "react-native";
 
+import {AuthService} from './src/services/AuthService'
 import {MessageModel} from './src/models/MessageModel'
 import {db} from './firebase'
 
@@ -34,6 +35,8 @@ export default function App() {
   const dbURL =
     "https://cs4261-assignment1-67f47-default-rtdb.firebaseio.com/rest/post.json";
 // >>>>>>> main
+  let as = new AuthService()
+  as.userExists('matt', 'abc')
 
   return (
     <View style={styles.container}>
