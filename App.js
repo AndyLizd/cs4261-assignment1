@@ -2,12 +2,38 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { Alert, Button, StyleSheet, Text, TextInput, View } from "react-native";
 
+import {MessageModel} from './src/models/MessageModel'
+import {db} from './firebase'
+
+
 export default function App() {
+
+// <<<<<<< mn/firebase
+//   let mm = new MessageModel('Test message')
+//   mm.saveToFirebase()
+
+//   var msgRef = db.ref('messages/');
+//   msgRef.on('child_added', (data) => {
+//     console.log('msg added')
+//     // addCommentElement(postElement, data.key, data.val().text, data.val().author);
+//   });
+
+//   msgRef.on('child_changed', (data) => {
+//     console.log('msg changed')
+//     // setCommentValues(postElement, data.key, data.val().text, data.val().author);
+//   });
+
+//   msgRef.on('child_removed', (data) => {
+//     console.log('msg deleted')
+//     // deleteComment(postElement, data.key);
+//   });
+// =======
   const [post, setPost] = useState("Lorem");
   const [input, setInput] = useState("");
 
   const dbURL =
     "https://cs4261-assignment1-67f47-default-rtdb.firebaseio.com/rest/post.json";
+// >>>>>>> main
 
   return (
     <View style={styles.container}>
