@@ -16,6 +16,6 @@ export class MessageModel {
     saveToFirebase() {
         db
         .ref('/messages')
-        .push(this.toJSON(this.msg));
+        .push(this.toJSON(this.msg))
     }
 }
