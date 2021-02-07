@@ -8,6 +8,7 @@ import { db } from "./firebase";
 import Navbar from "./src/components/Navbar";
 import ShowPost from "./src/components/ShowPost";
 import WritePost from "./src/components/WritePost";
+import UserPage from "./src/components/UserPage";
 
 export default function App() {
   //   let mm = new MessageModel('Test message')
@@ -50,7 +51,8 @@ const renderContent = (page) => {
       return <ShowPost />;
     case 1:
       return <WritePost />;
-
+    case 2:
+      return <UserPage />;
     default:
       return <ShowPost />;
   }

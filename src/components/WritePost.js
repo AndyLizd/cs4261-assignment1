@@ -9,7 +9,7 @@ function WritePost(props) {
   return (
     <View style={styles.container}>
       <TextInput
-        placeholder="Post your new fortune cookie"
+        placeholder="Post a new fortune cookie"
         onChangeText={(text) => setInput(text)}
         style={styles.textInput}
       />
@@ -45,12 +45,12 @@ const styles = StyleSheet.create({
   },
   textInput: {
     width: "85%",
-    height: "40%",
+    height: "45%",
     margin: "15%",
     backgroundColor: "#fafafa",
     borderRadius: 20,
     textAlign: "center",
-    fontSize: 16,
+    fontSize: 18,
   },
   text: {
     textAlign: "center",

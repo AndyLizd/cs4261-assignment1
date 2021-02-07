@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Alert, Button, StyleSheet, Text, TextInput, View } from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
 import AppButton from "./AppButton";
 
 function ShowPost(props) {
-  const [post, setPost] = useState("Lorem");
+  const [post, setPost] = useState("How about another fortune cookie?");
   const [input, setInput] = useState("");
 
   const dbURL =
@@ -17,7 +17,7 @@ function ShowPost(props) {
 
       <View style={styles.buttonContainer}>
         <AppButton
-          title="Get a Fortune Cookie"
+          title="Get A Fortune Cookie"
           onPress={() => getRandomPost(setPost, dbURL)}
           color="gold"
         />
@@ -52,18 +52,6 @@ const putPosts = (posts, dbURL) => {
   });
 };
 
-const addPost = (input, setInput, dbURL) => {
-  fetch(dbURL)
-    .then((response) => response.json())
-    .then((posts) => {
-      posts.push({ content: input });
-      console.log(posts);
-      putPosts(posts, dbURL);
-    })
-    .then((res) => setInput(""))
-    .then((res) => Alert.alert("Success", "Post submitted."));
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -74,6 +62,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 20,
     color: "gray",
+    lineHeight: 35,
+    fontWeight: "bold",
   },
   postContainer: {
     width: "80%",
