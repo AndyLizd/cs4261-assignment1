@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { Alert, Button, StyleSheet, Text, TextInput, View } from "react-native";
 
+import {AuthService} from './src/services/AuthService'
 import {MessageModel} from './src/models/MessageModel'
 import {db} from './firebase'
 

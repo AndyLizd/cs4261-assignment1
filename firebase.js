@@ -1,6 +1,6 @@
 import * as firebase from 'firebase';
 
-const firebaseConfig = {
+export const firebaseConfig = {
     apiKey: "AIzaSyBUZtgGlNkZP7Z_mymxM-Os0ER96PECnbA",
     authDomain: "cs4261-assignment1-67f47.firebaseapp.com",
     databaseURL: "https://cs4261-assignment1-67f47-default-rtdb.firebaseio.com",
