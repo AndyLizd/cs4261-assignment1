@@ -3,7 +3,6 @@ import { View, StyleSheet, TextInput, Alert } from "react-native";
 import AppButton from "./AppButton";
 
 import { MessageModel } from "../models/MessageModel";
-import { db, messagesURL } from "../../firebase";
 
 function WritePost(props) {
   const [input, setInput] = useState("");

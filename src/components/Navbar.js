@@ -27,13 +27,7 @@ function Navbar({ setPage }) {
 
 function Option({ icon, page, setPage }) {
   return (
-    <TouchableOpacity
-      style={styles.button}
-      onPress={() => {
-        setPage(page);
-        console.log("change");
-      }}
-    >
+    <TouchableOpacity style={styles.button} onPress={() => setPage(page)}>
       {icon}
     </TouchableOpacity>
   );

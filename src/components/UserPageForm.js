@@ -65,7 +65,6 @@ function UserPageForm({
 }
 
 const loginUser = async (userName, password, setUserState) => {
-  console.log(userName + " " + password);
   const res = await auth.userExists(userName, password);
   if (!res) {
     Alert.alert("Fail to Log in", "invalid user name or password.");

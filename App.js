@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { View, Text, StyleSheet } from "react-native";
-
-import {MessageModel} from './src/models/MessageModel'
-import {db} from './firebase'
+import { View, StyleSheet } from "react-native";
 
 import Navbar from "./src/components/Navbar";
 import ShowPost from "./src/components/ShowPost";
