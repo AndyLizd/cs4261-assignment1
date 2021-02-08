@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import { Alert, StyleSheet, Text, View } from "react-native";
 import AppButton from "./AppButton";
 
+import { db, messagesURL } from "../../firebase";
+
 function ShowPost(props) {
   const [post, setPost] = useState("How about another fortune cookie?");
-  const [input, setInput] = useState("");
-
-  const dbURL =
-    "https://cs4261-assignment1-67f47-default-rtdb.firebaseio.com/rest/post.json";
 
   return (
     <View style={styles.container}>
@@ -15,10 +13,15 @@ function ShowPost(props) {
         <Text style={styles.text}>{post}</Text>
       </View>
 
+      <View style={styles.numberContainer}>
+        <Text style={styles.number}>01 16 48 49 65 08</Text>
+      </View>
+
       <View style={styles.buttonContainer}>
         <AppButton
-          title="Get A Fortune Cookie"
-          onPress={() => getRandomPost(setPost, dbURL)}
+          title="Open A Fortune Cookie"
+          // onPress={() => getRandomPost(setPost, dbURL)}
+          onPress={() => getRandomMessage(setPost)}
           color="gold"
         />
       </View>
@@ -26,31 +29,22 @@ function ShowPost(props) {
   );
 }
 
-const getRandomPost = (setPost, dbURL) => {
-  console.log("button pressed");
-
-  fetch(dbURL)
+const getRandomMessage = (setPost) => {
+  fetch(messagesURL)
     .then((response) => response.json())
     .then((posts) => {
-      const idx = Math.floor(Math.random() * posts.length);
-      setPost(posts[idx].content);
-      return posts;
-    })
-    .then((posts) => {
-      while (posts.length > 10) {
-        const idx = Math.floor(Math.random() * posts.length);
-        posts.splice(idx, 1); // remove posts[idx]
-      }
-      putPosts(posts, dbURL);
+      let keys = Object.keys(posts);
+      let randomKey = keys[Math.floor(Math.random() * keys.length)];
+      setPost(posts[randomKey]["text"]);
     });
 };
 
-const putPosts = (posts, dbURL) => {
-  fetch(dbURL, {
-    method: "PUT",
-    body: JSON.stringify(posts),
-  });
-};
+// const putPosts = (posts, dbURL) => {
+//   fetch(dbURL, {
+//     method: "PUT",
+//     body: JSON.stringify(posts),
+//   });
+// };
 
 const styles = StyleSheet.create({
   container: {
@@ -75,6 +69,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     position: "absolute",
     top: "80%",
+  },
+  numberContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  number: {
+    color: "#26a69a",
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });
 
