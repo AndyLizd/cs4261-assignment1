@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { View, Text, StyleSheet } from "react-native";
 
-import {AuthService} from './src/services/AuthService'
 import {MessageModel} from './src/models/MessageModel'
 import {db} from './firebase'
 

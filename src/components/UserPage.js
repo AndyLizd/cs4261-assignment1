@@ -7,102 +7,60 @@ import {
   Text,
 } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
+
 import AppButton from "./AppButton";
-
-import { AuthService } from "../services/AuthService";
-
-const auth = new AuthService();
+import UserPageForm from "./UserPageForm";
 
 function UserPage(props) {
-  const [logedIn, setLogedIn] = useState(false);
-  const [newUser, setNewUser] = useState(true);
+  const [userState, setUsterState] = useState("login");
 
   return (
     <View style={styles.container}>
       <View style={styles.logo}>
-        <FontAwesome5 name="cookie-bite" size={100} color="gray" />
+        <FontAwesome5
+          name="cookie-bite"
+          size={100}
+          color={userState === "success" ? "tomato" : "gray"}
+        />
       </View>
 
-      {newUser ? (
-        <BeforeLogin
+      {renderContent(userState, setUsterState)}
+    </View>
+  );
+}
+
+const renderContent = (userState, setUserState) => {
+  switch (userState) {
+    case "register":
+      return (
+        <UserPageForm
           operation="register"
           promtText="Hava an account? Log in here."
-          secondaryOnPress={() => {
-            setNewUser(false);
-            console.log(newUser);
-          }}
+          secondaryOnPress={() => setUserState("login")}
+          setUserState={setUserState}
         />
-      ) : (
-        <BeforeLogin
+      );
+    case "login":
+      return (
+        <UserPageForm
           operation="login"
-          promtText="New user? Register here."
-          onPress={() => console.log("pressed")}
-          secondaryOnPress={() => {
-            setNewUser(true);
-            console.log(newUser);
-          }}
+          promtText="New uster? Register here."
+          secondaryOnPress={() => setUserState("register")}
+          setUserState={setUserState}
         />
-      )}
-    </View>
-  );
-}
-
-function BeforeLogin({ operation, promtText, secondaryOnPress }) {
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-  return (
-    <View style={styles.textInputContainer}>
-      <TextInput
-        style={styles.textInput}
-        placeholder="user name"
-        autoCapitalize="none"
-        autoCorrect={false}
-        keyboardType="email-address"
-        onChange={(text) => {
-          setUserName(text);
-          console.log(text);
-        }}
-      />
-      <TextInput
-        style={styles.textInput}
-        placeholder="password"
-        autoCapitalize="none"
-        autoCorrect={false}
-        secureTextEntry
-        textContentType="password"
-        onChange={(text) => setPassword(text)}
-      />
-
-      <View style={styles.buttonContainer}>
-        <AppButton
-          title={operation}
-          color="tomato"
-          onPress={
-            // operation === "register"
-            //   ? () => createUser(userName, password)
-            //   : () => loginUser(userName, password)
-            () => {
-              console.log(userName);
-            }
-          }
-        />
-        <TouchableOpacity
-          style={styles.secondaryButton}
-          onPress={secondaryOnPress}
-        >
-          <Text style={styles.buttonText}>{promtText}</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-}
-
-const loginUser = (userName, password) => {
-  console.log(userName);
-};
-
-const createUser = (userName, password) => {
-  console.log(userName);
+      );
+    case "success":
+      return (
+        <View style={styles.successContainer}>
+          <Text style={styles.successText}>You are logged in.</Text>
+          <AppButton
+            title="log out"
+            color="tomato"
+            onPress={() => setUserState("login")}
+          />
+        </View>
+      );
+  }
 };
 
 const styles = StyleSheet.create({
@@ -112,49 +70,25 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   logo: {
-    width: 120,
-    height: 120,
+    width: "30%",
+    height: "30%",
     justifyContent: "center",
     alignItems: "center",
     marginTop: 100,
     marginBottom: 50,
-    flex: 1,
+    top: 10,
   },
-  textInput: {
-    width: "85%",
-    height: "10%",
-    margin: "3%",
-    paddingLeft: 25,
-    backgroundColor: "#fafafa",
-    borderRadius: 20,
-    textAlign: "justify",
-    fontSize: 18,
-    flex: 1,
-  },
-  buttonContainer: {
+  successContainer: {
     width: "100%",
-    justifyContent: "center",
+    height: "40%",
+    flex: 1,
+    justifyContent: "space-around",
     alignItems: "center",
-    flex: 4,
   },
-  secondaryButton: {
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 15,
-    marginVertical: 10,
-  },
-  buttonText: {
-    color: "gray",
-    fontSize: 16,
+  successText: {
+    fontSize: 22,
     fontWeight: "bold",
-  },
-  textInputContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-    height: "100%",
-    flex: 3,
+    color: "tomato",
   },
 });
 
