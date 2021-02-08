@@ -12,25 +12,6 @@ import WritePost from "./src/components/WritePost";
 import UserPage from "./src/components/UserPage";
 
 export default function App() {
-  //   let mm = new MessageModel('Test message')
-  //   mm.saveToFirebase()
-
-  //   var msgRef = db.ref('messages/');
-  //   msgRef.on('child_added', (data) => {
-  //     console.log('msg added')
-  //     // addCommentElement(postElement, data.key, data.val().text, data.val().author);
-  //   });
-
-  //   msgRef.on('child_changed', (data) => {
-  //     console.log('msg changed')
-  //     // setCommentValues(postElement, data.key, data.val().text, data.val().author);
-  //   });
-
-  //   msgRef.on('child_removed', (data) => {
-  //     console.log('msg deleted')
-  //     // deleteComment(postElement, data.key);
-  //   });
-
   const [page, setPage] = useState(0);
 
   return (

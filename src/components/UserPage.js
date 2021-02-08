@@ -9,6 +9,10 @@ import {
 import { FontAwesome5 } from "@expo/vector-icons";
 import AppButton from "./AppButton";
 
+import { AuthService } from "../services/AuthService";
+
+const auth = new AuthService();
+
 function UserPage(props) {
   const [logedIn, setLogedIn] = useState(false);
   const [newUser, setNewUser] = useState(true);
@@ -21,9 +25,8 @@ function UserPage(props) {
 
       {newUser ? (
         <BeforeLogin
-          buttonText="register"
+          operation="register"
           promtText="Hava an account? Log in here."
-          onPress={() => console.log("pressed")}
           secondaryOnPress={() => {
             setNewUser(false);
             console.log(newUser);
@@ -31,7 +34,7 @@ function UserPage(props) {
         />
       ) : (
         <BeforeLogin
-          buttonText="login"
+          operation="login"
           promtText="New user? Register here."
           onPress={() => console.log("pressed")}
           secondaryOnPress={() => {
@@ -44,10 +47,9 @@ function UserPage(props) {
   );
 }
 
-function BeforeLogin({ buttonText, promtText, onPress, secondaryOnPress }) {
+function BeforeLogin({ operation, promtText, secondaryOnPress }) {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-
   return (
     <View style={styles.textInputContainer}>
       <TextInput
@@ -56,7 +58,10 @@ function BeforeLogin({ buttonText, promtText, onPress, secondaryOnPress }) {
         autoCapitalize="none"
         autoCorrect={false}
         keyboardType="email-address"
-        onChange={(text) => setUserName(text)}
+        onChange={(text) => {
+          setUserName(text);
+          console.log(text);
+        }}
       />
       <TextInput
         style={styles.textInput}
@@ -69,7 +74,18 @@ function BeforeLogin({ buttonText, promtText, onPress, secondaryOnPress }) {
       />
 
       <View style={styles.buttonContainer}>
-        <AppButton title={buttonText} color="tomato" onPress={onPress} />
+        <AppButton
+          title={operation}
+          color="tomato"
+          onPress={
+            // operation === "register"
+            //   ? () => createUser(userName, password)
+            //   : () => loginUser(userName, password)
+            () => {
+              console.log(userName);
+            }
+          }
+        />
         <TouchableOpacity
           style={styles.secondaryButton}
           onPress={secondaryOnPress}
@@ -80,6 +96,14 @@ function BeforeLogin({ buttonText, promtText, onPress, secondaryOnPress }) {
     </View>
   );
 }
+
+const loginUser = (userName, password) => {
+  console.log(userName);
+};
+
+const createUser = (userName, password) => {
+  console.log(userName);
+};
 
 const styles = StyleSheet.create({
   container: {

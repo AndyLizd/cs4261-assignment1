@@ -6,16 +6,16 @@ import { MessageModel } from "../models/MessageModel";
 import { db, messagesURL } from "../../firebase";
 
 function WritePost(props) {
-  const dbURL =
-    "https://cs4261-assignment1-67f47-default-rtdb.firebaseio.com/rest/post.json";
-
   const [input, setInput] = useState("");
 
   return (
     <View style={styles.container}>
       <TextInput
         placeholder="Post a new fortune cookie"
-        onChangeText={(text) => setInput(text)}
+        onChangeText={(text) => {
+          setInput(text);
+          console.log(text);
+        }}
         style={styles.textInput}
       />
 
@@ -30,18 +30,6 @@ function WritePost(props) {
     </View>
   );
 }
-
-// const addPost = (input, setInput, dbURL) => {
-//   fetch(dbURL)
-//     .then((response) => response.json())
-//     .then((posts) => {
-//       posts.push({ content: input });
-//       console.log(posts);
-//       putPosts(posts, dbURL);
-//     })
-//     .then((res) => setInput(""))
-//     .then((res) => Alert.alert("Success", "Post submitted."));
-// };
 
 const addPost = (input, setInput) => {
   let msg = new MessageModel(input);
